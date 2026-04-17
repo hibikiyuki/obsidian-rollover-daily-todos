@@ -272,7 +272,7 @@ export default class RolloverTodosPlugin extends Plugin {
           file: file,
           oldContent: `${dailyNoteContent}`,
         };
-        const todos_todayString = `\n${todos_today.join("\n")}`;
+        // const todos_todayString = `\n${todos_today.join("\n")}`;
 
         // If template heading is selected, try to rollover to template heading
         if (templateHeadingSelected) {
