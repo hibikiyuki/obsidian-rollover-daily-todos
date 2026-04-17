@@ -255,6 +255,19 @@ export default class RolloverTodosPlugin extends Plugin {
 
       if (todos_today.length > 0) {
         let dailyNoteContent = await this.app.vault.read(file);
+
+        // --- Additions/Modifications start here ---
+        // Filter existing todos from daily notes
+        const currentLines = dailyNoteContent.split(/\r?\n|\r|\n/g);
+        const filtered_todos = todos_today.filter(todo => !currentLines.includes(todo));
+        
+        if (filtered_todos.length === 0) {
+          return; // Do nothing if all have already been copied
+        }
+        
+        const todos_todayString = `\n${filtered_todos.join("\n")}`;
+        // --- Additions/Modifications end ---
+        
         undoHistoryInstance.today = {
           file: file,
           oldContent: `${dailyNoteContent}`,
